@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { IBasicState } from '../reducers/basicReducer';
@@ -13,17 +14,15 @@ export interface IBasicAnyAction {
 
 export type BasicActions = IBasicAnyAction;
 
-/*<Promise<Return Type>, State Interface, Type of Param, Type of Action> */
-export const basicAction: ActionCreator<ThunkAction<Promise<any>, IBasicState, null, IBasicAnyAction>> = () => {
-    return async (dispatch: Dispatch) => {
-        try {
-            // Your logic here
-            dispatch({
-            property: null,
-            type: BasicActionTypes.ANY
-            })
-        } catch (err) {
-        console.error(err);
-        }
-    };
+/* <Promise<Return Type>, State Interface, Type of Param, Type of Action> */
+export const basicAction: ActionCreator<ThunkAction<Promise<any>, IBasicState, null, IBasicAnyAction>> = () => async (dispatch: Dispatch) => {
+  try {
+    // Your logic here
+    dispatch({
+      property: null,
+      type: BasicActionTypes.ANY,
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };
