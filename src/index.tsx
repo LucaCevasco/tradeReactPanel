@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,6 +9,8 @@ import { Provider } from 'react-redux';
 import App from './App';
 import theme from './theme';
 import configureStore from './store/store';
+
+require('dotenv').config();
 
 const store = configureStore();
 

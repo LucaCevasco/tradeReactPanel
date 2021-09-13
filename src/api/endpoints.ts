@@ -1,6 +1,5 @@
-
 const endpoints = Object.freeze({
-    mock: `/mock`
+  mock: '/mock',
 });
 
 export default endpoints;

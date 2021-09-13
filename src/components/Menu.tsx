@@ -29,7 +29,7 @@ const NavMenu = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link to="/buy">Home</Link>
+          <Link to="/trade">Buy / Sell</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Link to="/sell">Home</Link>

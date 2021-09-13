@@ -1,26 +1,27 @@
 /* eslint-disable no-unused-vars */
 import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { TradeInfo } from '../../interfaces/payloads';
 import { IBasicState } from '../reducers/basicReducer';
 
 export enum BasicActionTypes {
-    ANY = 'ANY',
+    TRADE = 'trade',
+    SELL = 'sell'
 }
 
-export interface IBasicAnyAction {
-    type: BasicActionTypes.ANY;
-    property: any;
+export interface IBasicTradeAction {
+    type: BasicActionTypes.TRADE;
+    property: TradeInfo;
 }
 
-export type BasicActions = IBasicAnyAction;
+export type BasicActions = IBasicTradeAction;
 
 /* <Promise<Return Type>, State Interface, Type of Param, Type of Action> */
-export const basicAction: ActionCreator<ThunkAction<Promise<any>, IBasicState, null, IBasicAnyAction>> = () => async (dispatch: Dispatch) => {
+export const tradeAction: ActionCreator<ThunkAction<Promise<any>, IBasicState, null, IBasicTradeAction>> = (tradeInfo: TradeInfo) => async (dispatch: Dispatch) => {
   try {
-    // Your logic here
     dispatch({
-      property: null,
-      type: BasicActionTypes.ANY,
+      property: tradeInfo,
+      type: BasicActionTypes.TRADE,
     });
   } catch (err) {
     console.error(err);
