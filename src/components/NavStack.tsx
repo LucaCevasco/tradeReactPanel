@@ -5,14 +5,11 @@ import Trade from './Trade';
 
 const NavStack = () => (
   <Switch>
-    <Route path="/trade">
-      <Trade />
-    </Route>
     <Route path="/book">
       <OrderBook />
     </Route>
     <Route path="/">
-      <p>home</p>
+      <Trade />
     </Route>
   </Switch>
 );

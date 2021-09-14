@@ -34,7 +34,7 @@ const Trade = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const balances = useSelector((state: IBasicSelectorState) => state);
-
+  // IMPROVE: join states in one state object
   const [tradeType, setTradeType] = useState('');
   const [cryptocurrency, setCryptocurrency] = useState('btc');
   const [orderType, setOrderType] = useState('');
@@ -54,6 +54,7 @@ const Trade = () => {
 
   const makeOrder = () => {
     const computedSellBalance = cryptocurrency === 'btc' ? balances.basicState.btcBalance : balances.basicState.ethBalance;
+    // IMPROVE: do this validation in a redux action to be able to dispatch a global error and catch border cases. Also create handles for these global errors.
     if (tradeType === 'buy' && parseFloat(amount) > balances.basicState.usdcBalance) return alert('You dont have enought usdc for this operation');
     if (tradeType === 'sell' && parseFloat(amount) > computedSellBalance) return alert(`You dont have enought ${cryptocurrency} for this operation`);
 
@@ -61,6 +62,7 @@ const Trade = () => {
       dispatch(tradeOrderRegister({
         receivedValue, amount, cryptocurrency, tradeType,
       }));
+      // in a real case the timeout would not be necessary
       setTimeout(() => {
         dispatch(tradeAction({
           receivedValue, amount, cryptocurrency, tradeType, register: false,
@@ -77,6 +79,7 @@ const Trade = () => {
     return true;
   };
 
+  // IMPROVE: abstract form in "TradeForm" component and use Yup for validation
   return (
     <Container>
       <Typography variant="h3" className={classes.title}>
@@ -183,7 +186,7 @@ const Trade = () => {
       <Typography>
         You will receive
         {' '}
-        {receivedValue}
+        {receivedValue || '-'}
         {' '}
         {tradeType === 'buy' ? cryptocurrency : 'usdc'}
       </Typography>

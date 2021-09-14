@@ -4,7 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import { useSelector } from 'react-redux';
 import NavMenu from './Menu';
+import { IBasicSelectorState } from '../store/reducers/basicReducer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles();
+  const acumulatedFee = useSelector((state: IBasicSelectorState) => state.basicState.acumulatedFee);
 
   return (
     <div className={classes.root}>
@@ -32,7 +35,9 @@ const Navbar = () => {
             <NavMenu />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Cripto-Challenge
+            Cripto-Challenge - Acumulated fee (current rate %1.5):
+            {' '}
+            {acumulatedFee}
           </Typography>
         </Toolbar>
       </AppBar>
