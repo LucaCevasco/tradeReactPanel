@@ -39,6 +39,8 @@ const OrderCard = ({ order }: { order: TradeInfo}) => {
           {order.receivedValue}
           {' '}
           {order.tradeType === 'buy' ? order.cryptocurrency : 'Usdc'}
+          {' '}
+          (minus fee)
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           Spend

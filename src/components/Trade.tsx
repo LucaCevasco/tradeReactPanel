@@ -189,6 +189,8 @@ const Trade = () => {
         {receivedValue || '-'}
         {' '}
         {tradeType === 'buy' ? cryptocurrency : 'usdc'}
+        {' '}
+        (minus fee)
       </Typography>
       <Button variant="contained" color="primary" disabled={!tradeType || !cryptocurrency || !orderType || (!price && orderType !== 'market') || !amount} onClick={makeOrder}>
         Confirm
