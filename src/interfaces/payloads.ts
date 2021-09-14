@@ -3,4 +3,5 @@ export interface TradeInfo {
     amount: number;
     cryptocurrency: string;
     tradeType: string;
+    register: boolean;
 }

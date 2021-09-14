@@ -7,7 +7,6 @@ import { IBasicState } from '../reducers/basicReducer';
 export enum BasicActionTypes {
     TRADE = 'trade',
     TRADE_LIMIT = 'trade-limit',
-    EXECUTE_LIMIT = 'trade-limit'
 }
 
 export interface IBasicTradeAction {
@@ -20,12 +19,7 @@ export interface IBasicTradeLimitAction {
   property: TradeInfo;
 }
 
-export interface IBasicExecuteLimitAction {
-  type: BasicActionTypes.EXECUTE_LIMIT;
-  property: TradeInfo;
-}
-
-export type BasicActions = IBasicTradeAction | IBasicTradeLimitAction | IBasicExecuteLimitAction;
+export type BasicActions = IBasicTradeAction | IBasicTradeLimitAction;
 
 /* <Promise<Return Type>, State Interface, Type of Param, Type of Action> */
 export const tradeAction: ActionCreator<ThunkAction<Promise<any>, IBasicState, null, IBasicTradeAction>> = (tradeInfo: TradeInfo) => async (dispatch: Dispatch) => {
@@ -44,17 +38,6 @@ export const tradeLimitAction: ActionCreator<ThunkAction<Promise<any>, IBasicSta
     dispatch({
       property: tradeInfo,
       type: BasicActionTypes.TRADE_LIMIT,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const executeAction: ActionCreator<ThunkAction<Promise<any>, IBasicState, null, IBasicExecuteLimitAction>> = (tradeInfo: TradeInfo) => async (dispatch: Dispatch) => {
-  try {
-    dispatch({
-      property: tradeInfo,
-      type: BasicActionTypes.EXECUTE_LIMIT,
     });
   } catch (err) {
     console.error(err);

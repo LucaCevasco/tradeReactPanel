@@ -9,7 +9,8 @@ import {
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import { tradeAction } from '../store/actions/basicAccion';
+import { setTimeout } from 'timers';
+import { tradeAction, tradeLimitAction as tradeOrderRegister } from '../store/actions/basicAccion';
 import { IBasicSelectorState } from '../store/reducers/basicReducer';
 import { CURRENCYS_PRICES } from '../api/mocks';
 
@@ -33,6 +34,7 @@ const Trade = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const balances = useSelector((state: IBasicSelectorState) => state);
+
   const [tradeType, setTradeType] = useState('');
   const [cryptocurrency, setCryptocurrency] = useState('btc');
   const [orderType, setOrderType] = useState('');
@@ -54,9 +56,24 @@ const Trade = () => {
     const computedSellBalance = cryptocurrency === 'btc' ? balances.basicState.btcBalance : balances.basicState.ethBalance;
     if (tradeType === 'buy' && parseFloat(amount) > balances.basicState.usdcBalance) return alert('You dont have enought usdc for this operation');
     if (tradeType === 'sell' && parseFloat(amount) > computedSellBalance) return alert(`You dont have enought ${cryptocurrency} for this operation`);
-    dispatch(tradeAction({
-      receivedValue, amount, cryptocurrency, tradeType,
-    }));
+
+    if (orderType === 'limit') {
+      dispatch(tradeOrderRegister({
+        receivedValue, amount, cryptocurrency, tradeType,
+      }));
+      setTimeout(() => {
+        dispatch(tradeAction({
+          receivedValue, amount, cryptocurrency, tradeType, register: false,
+        }));
+        alert('Order limit executed.');
+      }, 60000);
+      alert('Order created in orders book.');
+    }
+    if (orderType === 'market') {
+      dispatch(tradeAction({
+        receivedValue, amount, cryptocurrency, tradeType, register: true,
+      }));
+    }
     return true;
   };
 
